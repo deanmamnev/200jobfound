@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <link rel='stylesheet' href='/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='/css/landing.css' type='text/css' media='screen,projection' />
+</head>
+
+<body>
+
+    <div class='nav-wrapper'>
+        <div class='logo-wrapper'>
+            200 Job Found
+        </div>
+        <div class='tab-wrapper'>
+            <div class='tab' id='logInButton'>
+                Log In
+            </div>
+            <div class='tab' id='registerButton'>
+                Register
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <div id='searchBar'>
+        <input type='text' class='form-control' id='searchField' placeholder='Search...'>
+        <button type='submit' class='btn btn-secondary' id="search">Search</button>
+    </div>
+
+    <div class='results-wrapper'>
+    
+    </div>
+
+    <div class='modal fade' id='logInModal'>
+        <div class='modal-dialog' role='document'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <h4 class='modal-title' id='exampleModalLabel'>Log In</h4>
+                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                        <span aria-hidden='true'>&times;</span>
+                    </button>
+                </div>
+                <div class='modal-body'>
+                    <h5>If you want to save a job, you need to log in!</h5>
+                    <br />
+                    <form>
+                        <input type='email' class='form-control' id='logInEmail' aria-describedby='emailHelp' placeholder='E-mail'>
+                        <br />
+                        <input type='password' class='form-control' id='logInPassword' placeholder='Password'>
+                        <br />
+                        <button type='submit' class='btn btn-secondary' id='logIn'>Log In</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class='modal fade' id='registerModal'>
+        <div class='modal-dialog' role='document'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <h4 class='modal-title' id='exampleModalLabel'>Register</h4>
+                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                        <span aria-hidden='true'>&times;</span>
+                    </button>
+                </div>
+                <div class='modal-body'>
+                    <h5>Sign up for 200 Job Found!</h5>
+                    <br />
+                    <form>
+                        <input type='email' class='form-control' id='registerEmail' aria-describedby='emailHelp' placeholder='E-mail'>
+                        <br />
+                        <input type='password' class='form-control' id='registerPassword' placeholder='Password'>
+                        <br />
+                        <input type='password' class='form-control' id='registerConfirmPassword' placeholder='Confirm Password'>
+                        <br />
+                        <button type='submit' class='btn btn-secondary' id='register'>Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type='text/javascript' src='/js/jquery-3.3.1.min.js'></script>
+    <script type='text/javascript' src='/js/landing.js'></script>
+    <script type='text/javascript' src='/js/bootstrap.min.js'></script>
+</body>
+
+</html>
