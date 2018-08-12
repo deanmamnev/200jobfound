@@ -1,56 +1,12 @@
 
 $(document).ready(function () {
 
-    $.get("/api/auth").then(function (res) {
-        if (res) {
-            window.location.replace("/search")
-        }
-    })
-
-    $("#register").on("click", function (e) {
-        e.preventDefault()
-        var email = $("#registerEmail").val()
-        var password = $("#registerPassword").val()
-        var confirmPassword = $("#registerConfirmPassword").val()
-        if (email.indexOf(".com") != -1 && email.indexOf("@") != -1) {
-            if (password == confirmPassword) {
-                $.post("/api/register", { email: email, password: password }).then(function (res) {
-                    if (res) {
-                        $.post("/api/login", { email: email, password: password }).then(function (res) {
-                            if (res) {
-                                window.location.replace("/search")
-                            }
-                        })
-                    }
-                })
-            } else {
-                alert("The passwords you entered do not match. Please try again.")
-            }
-        } else {
-            alert("The E-mail adress you entered is not valid. Please try again.")
-        }
-    })
-
-    $("#logIn").on("click", function (e) {
-        e.preventDefault()
-        var email = $("#logInEmail").val()
-        var password = $("#logInPassword").val()
-        $.post("/api/login", { email: email, password: password }).then(function (res) {
-            if (res) {
-                window.location.replace("/search")
+    $(document).ready(function () {
+        $.get("/api/auth").then(function (res) {
+            if (!res) {
+                window.location.replace("/")
             }
         })
-
-    })
-
-    $("#logInButton").on("click", function (e) {
-        e.preventDefault()
-        $('#logInModal').modal('toggle');
-    })
-
-    $("#registerButton").on("click", function (e) {
-        e.preventDefault()
-        $('#registerModal').modal('toggle');
     })
 
     $(".tab").mouseover(function () {
@@ -60,19 +16,27 @@ $(document).ready(function () {
     $(".tab").mouseleave(function () {
         $(this).css("background-color", "darkgray")
     })
+    $("#logOutButton").on("click", function (e) {
+        e.preventDefault()
+        $.get("/api/logout").then(function () {
+            window.location.replace("/")
+        })
+    })
 
     $("#search").on("click", function (e) {
         e.preventDefault()
         $(".results-wrapper").empty()
         var val = $("#searchField").val()
-        $.get("/api/publicSearch?q=" + val, function (res) {
-            for (i = 0; i < res.length; i++) {
-                var result = createResult(i, res[i], false)
-                $(".results-wrapper").append(result)
-                $("#info" + i).css("display", "none")
-                $("#description" + i).show()
-            }
-            console.log(res)
+        $.post("/api/search?q=" + val, function (res) {
+            $.get("/api/search", function (res) {
+                for (i = 0; i < res.length; i++) {
+                    var result = createResult(i, res[i], false)
+                    $(".results-wrapper").append(result)
+                    $("#info" + i).css("display", "none")
+                    $("#description" + i).show()
+                }
+                console.log(res)
+            })
         })
     })
 
@@ -111,7 +75,7 @@ $(document).ready(function () {
 
     $(document.body).on('click', '.save', function (e) {
         e.preventDefault()
-        $('#logInModal').modal('toggle');
+        console.log("save")
     })
 
     $(document.body).on('click', '.jobPage', function (e) {
@@ -176,12 +140,12 @@ function createResult(id, data, saved) {
         "<div class='result-content' id='content" + id + "'>" +
         "<div class='result-description' id='description" + id + "'>" + data.description + "</div>" +
         "<div class='result-info' id='info" + id + "'>" +
-        "<div class='result-company-logo'><img src='https://logo.clearbit.com/" + data.company.url + "' class='result-logo-img' onerror='this.src=`/assets/logo-missing.png`'/></div>" +
-        "<div class='result-company-name'><strong>Company Name:</strong><br/><a class='businessPage' href='" + data.company.url + "'>" + data.company.name + "</a></div>" +
+        "<div class='result-company-logo'><img src='https://logo.clearbit.com/" + data.company_url + "' class='result-logo-img' onerror='this.src=`/assets/logo-missing.png`'/></div>" +
+        "<div class='result-company-name'><strong>Company Name:</strong><br/><a class='businessPage' href='" + data.company_url + "'>" + data.company_name + "</a></div>" +
         "<div class='result-post-date'><strong>Date Posted:</strong><br/>" + data.post_date + "</div>" +
-        "<div class='result-category-name'><strong>Category:</strong><br/>" + data.category.name + "</div>" +
+        "<div class='result-category-name'><strong>Category:</strong><br/>" + data.category_name + "</div>" +
         "<div class='result-perks'><strong>Perks:</strong><br/>" + data.perks + "</div>" +
-        "<div class='result-type-name'><strong>Hours:</strong><br/>" + data.type.name + "</div>" +
+        "<div class='result-type-name'><strong>Hours:</strong><br/>" + data.type_name + "</div>" +
         "<div class='result-relocation-assistance'><strong>Relocation Assistance:</strong><br/>" + data.relocation_assistance + "</div>" +
         "<div class='result-telecommuting'><strong>Telecommute:</strong><br/>" + data.telecommuting + "</div>" +
         "<div class='result-url'><strong>Job Page:</strong><br/><a class='jobPage' href='" + data.url + "'>Click Here</a></div>" +

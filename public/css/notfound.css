@@ -1,0 +1,12 @@
+body {
+    font-family:"monaco","Consolas","Lucida Console",monospace;
+    text-align: center;
+    background-color: lightgray;
+}
+.nav-wrapper {
+    background-color: darkgray;
+    color: white;
+}
+.logo-wrapper {
+    font-size: 8vw;
+}

@@ -14,7 +14,7 @@ body {
     display:flex;
 }
 .tab {
-    width: 50%;
+    width: calc(100% / 3);
     font-size: 1.3em;
 }
 #register {

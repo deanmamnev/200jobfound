@@ -9,16 +9,13 @@ module.exports = function (passport, user) {
 
 
   passport.serializeUser(function (user, done) {
-    console.log('[serializeUser]', user)
     done(null, user.id);
   });
 
 
   passport.deserializeUser(function (id, done) {
-    console.log('[going to deserialize by id]', id)
     User.findById(id).then(function (user) {
       if (user) {
-        console.log('[DESERIALIZEuSER', user.get() )
         done(null, user.get());
       }
       else {

@@ -5,7 +5,7 @@ const passport = require('passport')
 const session = require('express-session')
 const MySQLStore = require('express-mysql-session')(session);
 const bodyParser = require('body-parser')
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 4001;
 
 var options = { //this will go in the .env
     host: 'qzkp8ry756433yd4.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
@@ -14,7 +14,14 @@ var options = { //this will go in the .env
     password: 'f9nqjopt771twijx',
     database: 'sik6moku3wk94twj'//,
 };
-
+// var options ={
+//     user: "root",
+//     password: "root",
+//     database: "twohundredjobfound",
+//     host: " 127.0.0.1",
+//     port: 3306,
+//     dialect: "mysql"
+// }
 var sessionStore = new MySQLStore(options);
 
 app.use(bodyParser.json())
@@ -48,7 +55,7 @@ models.sequelize.sync().then(function () {
 }).catch(function (err) {
     console.log(err, "Something went wrong with the Database Update!")
 });
-
+app.get('*', (req, res) => res.sendFile(path.join(__dirname + '/views/notfound.html')))
 app.listen(PORT, function () {
         console.log(`🌎 ==> Server now on port ${PORT}!`);
     });

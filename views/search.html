@@ -1,1 +1,46 @@
-SEARCH
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <link rel='stylesheet' href='/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='/css/search.css' type='text/css' media='screen,projection' />
+</head>
+
+<body>
+
+    <div class='nav-wrapper'>
+        <div class='logo-wrapper'>
+            200 Job Found
+        </div>
+        <div class='tab-wrapper'>
+            <div class='tab' id='searchButton'>
+                Search
+            </div>
+            <div class='tab' id='savedButton'>
+                Saved
+            </div>
+            <div class='tab' id='logOutButton'>
+                Log Out
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <div id='searchBar'>
+        <input type='text' class='form-control' id='searchField' placeholder='Search...'>
+        <button type='submit' class='btn btn-secondary' id="search">Search</button>
+    </div>
+
+    <div class='results-wrapper'>
+    
+    </div>
+
+    <script type='text/javascript' src='/js/jquery-3.3.1.min.js'></script>
+    <script type='text/javascript' src='/js/search.js'></script>
+    <script type='text/javascript' src='/js/bootstrap.min.js'></script>
+</body>
+
+</html>

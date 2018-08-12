@@ -9,7 +9,9 @@ module.exports = function (app, passport) {
         res.json(req.isAuthenticated())
     })
 
-    app.post('/api/register', passport.authenticate('local-register'));
+    app.post('/api/register', passport.authenticate('local-register'), function(req,res) {
+        res.json(true)
+    });
 
     app.post('/api/login', passport.authenticate('local-login'), function (req,res) {
         console.log('[/api/login]', req.isAuthenticated() )
