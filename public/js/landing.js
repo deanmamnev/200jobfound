@@ -38,7 +38,7 @@ const createResult = function (id, data) {
     //this cant be the best way to do this...
     return (
         "<div class='result' id='result" + id + "'>" +
-        "<div class='result-header'>" + data.title + "</div>" +
+        "<div class='result-header'><strong>" + data.title + "</strong></div>" +
         "<div class='result-content' id='content" + id + "'>" +
         "<div class='result-description' id='description" + id + "'>" + data.description + "</div>" +
         "<div class='result-info'>" +
@@ -55,7 +55,7 @@ const createResult = function (id, data) {
         "<td class='result-type-name'><strong>Hours:</strong><br/>" + data.type.name + "</td>" +
         "</tr>" +
         "<tr>" +
-        "<td class='result-relocation-assistance'><strong>Company Name:</strong><br/>" + data.relocation_assistance + "</td>" +
+        "<td class='result-relocation-assistance'><strong>Relocation Assistance:</strong><br/>" + data.relocation_assistance + "</td>" +
         "<td class='result-telecommuting'><strong>Telecommute:</strong><br/>" + data.telecommuting + "</td>" +
         "<td class='result-url'><strong>Job Page:</strong><br/><a class='jobPage' href='" + data.url + "'>Click Here</a></td>" +
         "</tr>" +
