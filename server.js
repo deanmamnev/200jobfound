@@ -5,14 +5,15 @@ const passport = require('passport')
 const session = require('express-session')
 const MySQLStore = require('express-mysql-session')(session);
 const bodyParser = require('body-parser')
+require('dotenv').config()
 const PORT = process.env.PORT || 4001;
 
 var options = { //this will go in the .env
-    host: 'qzkp8ry756433yd4.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+    host: process.env.DB_HOST,
     port: 3306,
-    user: 'pb2zjsjoyz065grb',
-    password: 'f9nqjopt771twijx',
-    database: 'sik6moku3wk94twj'//,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_DATABASE//,
 };
 // var options ={
 //     user: "root",
