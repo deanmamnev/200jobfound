@@ -20,6 +20,15 @@ body {
     width: calc(100% / 3);
     font-size: 1.3em;
 }
+#savedButton {
+    background-color: rgba(30,30,30);
+}
+#searchButton {
+    background-color: rgba(60,60,60);
+}
+#logOutButton {
+    background-color: rgba(30,30,30);
+}
 #register {
     width: 100%;
 }

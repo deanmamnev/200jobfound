@@ -23,11 +23,19 @@ $(document).ready(function () {
         window.location.replace("/search")
     })
 
-    $(".tab").mouseover(function () {
+    $("#searchButton").mouseover(function () {
         $(this).css("background-color", "rgb(60, 60, 60)")
     })
 
-    $(".tab").mouseleave(function () {
+    $("#searchButton").mouseleave(function () {
+        $(this).css("background-color", "rgb(30, 30, 30)")
+    })
+
+    $("#logOutButton").mouseover(function () {
+        $(this).css("background-color", "rgb(60, 60, 60)")
+    })
+
+    $("#logOutButton").mouseleave(function () {
         $(this).css("background-color", "rgb(30, 30, 30)")
     })
 

@@ -9,11 +9,19 @@ $(document).ready(function () {
         })
     })
 
-    $(".tab").mouseover(function () {
+    $("#savedButton").mouseover(function () {
         $(this).css("background-color", "rgb(60, 60, 60)")
     })
 
-    $(".tab").mouseleave(function () {
+    $("#savedButton").mouseleave(function () {
+        $(this).css("background-color", "rgb(30, 30, 30)")
+    })
+
+    $("#logOutButton").mouseover(function () {
+        $(this).css("background-color", "rgb(60, 60, 60)")
+    })
+
+    $("#logOutButton").mouseleave(function () {
         $(this).css("background-color", "rgb(30, 30, 30)")
     })
 
