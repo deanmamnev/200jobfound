@@ -5,10 +5,7 @@ body {
 }
 .nav-wrapper {
     color: white;
-    border-width: 0 0 1px 0;
-    border-style: solid;
     background-color: rgba(30,30,30);
-    border-color: white;
 }
 .logo-wrapper {
     font-size: 8vw;
