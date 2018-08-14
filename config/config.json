@@ -18,10 +18,10 @@
 
     "production": {
         "use_env_variable": "JAWSDB_URL",
-        "username": "DB_USER",
-        "password": "DB_PASS",
-        "database": "DB_DATABASE",
-        "host": "DB_HOST",
+        "username": "liuv7w3ualw279a7",
+        "password": "vyxlof27ytc9349y",
+        "database": "skywtda2tf7o8tvk",
+        "host": "ixqxr3ajmyapuwmi.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
         "port": "3306",
         "dialect": "mysql"
     }
