@@ -10,17 +10,23 @@ $(document).ready(function () {
     })
 
     $(".tab").mouseover(function () {
-        $(this).css("background-color", "gray")
+        $(this).css("background-color", "rgb(60, 60, 60)")
     })
 
     $(".tab").mouseleave(function () {
-        $(this).css("background-color", "darkgray")
+        $(this).css("background-color", "rgb(30, 30, 30)")
     })
+
     $("#logOutButton").on("click", function (e) {
         e.preventDefault()
         $.get("/api/logout").then(function () {
             window.location.replace("/")
         })
+    })
+
+    $("#savedButton").on("click", function(e) {
+        e.preventDefault()
+        window.location.replace("/saved")
     })
 
     $("#search").on("click", function (e) {
@@ -33,6 +39,7 @@ $(document).ready(function () {
                     var result = createResult(res[i].id, res[i], false)
                     $(".results-wrapper").append(result)
                 }
+                $('.result-description *').removeAttr('style');
                 $(".result-info").hide()
             })
         })
@@ -84,6 +91,7 @@ $(document).ready(function () {
                         $("#info" + i).css("display", "none")
                         $("#description" + i).show()
                     }
+                    $('.result-description *').removeAttr('style');
                 })
             })
     })
@@ -169,7 +177,7 @@ function createResult(id, data, saved) {
     if (saved) {
         return (string +
             "<div class='button-group'>" +
-            "<button type='button' class='btn btn-outline-secondary button info' toggle='true' id='info" + id + "'>Information</button>" +
+            "<button type='button' class='btn btn-outline-light button info' toggle='true' id='info" + id + "'>Information</button>" +
             "<button type='button' class='btn btn-outline-danger button delete'>Delete</button>" +
             "<button type='button' class='btn btn-outline-primary button apply' data='" + data.apply_url + "'>Apply</button>" +
             "</div>" +
@@ -178,7 +186,7 @@ function createResult(id, data, saved) {
     } else {
         return (string +
             "<div class='button-group'>" +
-            "<button type='button' class='btn btn-outline-secondary button info' toggle='true' id='info" + id + "'>Information</button>" +
+            "<button type='button' class='btn btn-outline-light button info' toggle='true' id='info" + id + "'>Information</button>" +
             "<button type='button' class='btn btn-outline-success button save' data='" + id + "'>Save</button>" +
             "<button type='button' class='btn btn-outline-primary button apply' data='" + data.apply_url + "'>Apply</button>" +
             "</div>" +
