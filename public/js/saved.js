@@ -250,7 +250,7 @@ function createResult(id, data, saved) {
         return (string +
             "<div class='button-group'>" +
             "<button type='button' class='btn btn-outline-light button info' toggle='true' id='info" + id + "'>Information</button>" +
-            "<button type='button' class='btn btn-outline-info button tasks' data='" + id + "'>Tasks</button>" +
+            "<button type='button' class='btn btn-outline-warning button tasks' data='" + id + "'>Tasks</button>" +
             "<button type='button' class='btn btn-outline-danger button delete' data='" + id + "'>Delete</button>" +
             "<button type='button' class='btn btn-outline-primary button apply' data='" + data.apply_url + "'>Apply</button>" +
             "</div>" +
