@@ -23,7 +23,7 @@ body {
 #logIn {
     width: 100%
 }
-#searchBar {
+#taskBar {
     display: flex;
     width: 80%;
     margin: auto;
@@ -108,7 +108,7 @@ body {
         margin-top: 8px;
     }
     .button {
-        width: calc(100% / 3);
+        width: calc(100% / 4);
         border-width: 2px;
     }
 }
@@ -127,7 +127,35 @@ body {
         border-width: 2px;
     }
 }
-/* CSS REQUIRED */
-.tickbox {
-    left: 16px;
+.modal {
+    position: fixed;
+    right: 2%;
+    left: 2%;
+    top: 2%;
+    bottom: 2%;
+}
+.modal-dialog {
+    position: fixed;
+    right: 2%;
+    left: 2%;
+    top: 2%;
+    bottom: 2%;
+}
+.modal-content{
+    position: fixed;
+    right: 2%;
+    left: 2%;
+    top: 2%;
+    bottom: 2%;
+    background-color: rgb(40, 40, 40, .8);
+    color: white;
+ }
+ .modal-body{
+    overflow-y: scroll
+ }
+ .modal-header {
+    min-height: 56px;
+ }
+ .modal-footer {
+    min-height: 80px;
 }

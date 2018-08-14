@@ -5,6 +5,14 @@ $(document).ready(function () {
         $.get("/api/auth").then(function (res) {
             if (!res) {
                 window.location.replace("/")
+            } else {
+                $.get("/api/saved", function (res) {
+                    for (i = 0; i < res.length; i++) {
+                        var result = createResult(res[i].id, res[i], true)
+                        $(".results-wrapper").append(result)
+                    }
+                    $(".result-info").hide()
+                })
             }
         })
     })
@@ -16,6 +24,7 @@ $(document).ready(function () {
     $(".tab").mouseleave(function () {
         $(this).css("background-color", "darkgray")
     })
+
     $("#logOutButton").on("click", function (e) {
         e.preventDefault()
         $.get("/api/logout").then(function () {
@@ -23,21 +32,36 @@ $(document).ready(function () {
         })
     })
 
-    $("#search").on("click", function (e) {
+    $(document.body).on('click', '.tasks', function (e) {
         e.preventDefault()
-        $(".results-wrapper").empty()
-        var val = $("#searchField").val()
-        $.post("/api/search?q=" + val, function (res) {
-            $.get("/api/search", function (res) {
-                for (i = 0; i < res.length; i++) {
-                    var result = createResult(res[i].id, res[i], false)
-                    $(".results-wrapper").append(result)
-                }
-                $(".result-info").hide()
-            })
+        var id = $(this).attr("data")
+        $('#tasksModal').attr('job', id);
+        $('#tasksModal').modal('toggle');
+        $("#tasks").empty()
+        $.get("/api/tasks?job=" + id, function (res) {
+            for (i = 0; i < res.length; i++) {
+                var task = createTask(res[i])
+                $("#tasks").append(task)
+            }
         })
     })
-
+    $(document.body).on('click', '.removeTask', function (e) {
+        var id = $(this).attr("task")
+        var job = $(this).attr("job")
+        $.ajax({
+            url: '/api/tasks?id=' + id,
+            method: 'DELETE',
+            success: function (res) {
+                $.get("/api/tasks?job=" + job, function (res) {
+                    $("#tasks").empty()
+                    for (i = 0; i < res.length; i++) {
+                        var task = createTask(res[i])
+                        $("#tasks").append(task)
+                    }
+                })
+            },
+        });
+    })
     $(document.body).on('click', '.info', function (e) {
         e.preventDefault()
         var id = $(this).attr("id").replace(/\D/g, '');
@@ -71,21 +95,24 @@ $(document).ready(function () {
         window.open(data)
     })
 
-    $(document.body).on('click', '.save', function (e) {
+    $(document.body).on('click', '.delete', function (e) {
         e.preventDefault()
         var id = $(this).attr("data")
         $("#result" + id).animate({ height: 0, opacity: 0 }, 'slow')
-            $.post("/api/saved?id=" + id, function (res) {
-                $.get("/api/search", function (res) {
+        $.ajax({
+            url: '/api/saved?id=' + id,
+            method: 'DELETE',
+            success: function (res) {
+                $.get("/api/saved", function (res) {
                     $(".results-wrapper").empty()
                     for (i = 0; i < res.length; i++) {
-                        var result = createResult(res[i].id, res[i], false)
+                        var result = createResult(res[i].id, res[i], true)
                         $(".results-wrapper").append(result)
-                        $("#info" + i).css("display", "none")
-                        $("#description" + i).show()
                     }
+                    $(".result-info").hide()
                 })
-            })
+            },
+        });
     })
 
     $(document.body).on('click', '.jobPage', function (e) {
@@ -98,6 +125,44 @@ $(document).ready(function () {
         e.preventDefault()
         var href = $(this).attr("href")
         window.open(href)
+    })
+
+    $("#task").on('click', function (e) {
+        e.preventDefault()
+        var task = $("#taskField").val()
+        var job = $('#tasksModal').attr('job')
+        $.post("/api/tasks?task=" + task + "&job=" + job).then(function () {
+            $.get("/api/tasks?job=" + job).then(function (res) {
+                $("#tasks").empty()
+                for (i = 0; i < res.length; i++) {
+                    var task = createTask(res[i])
+                    $("#tasks").append(task)
+                }
+            })
+        })
+    })
+
+    $(document.body).on('click', '.tickbox', function (e) {
+        e.preventDefault()
+        var tick
+        var task = $(this).attr('data')
+        if ($(this).attr('toggle') == 'true') {
+            tick = 0
+        } else {
+            tick = 1
+        }
+        var id = $(this).attr("job")
+        $(this).attr("src", "/assets/ticking.png")
+        console.log("!")
+        $.post("/api/tick?task=" + task + "&tick=" + tick).then(function (res) {
+            $.get("/api/tasks?job=" + id, function (res) {
+                $("#tasks").empty()
+                for (i = 0; i < res.length; i++) {
+                    var task = createTask(res[i])
+                    $("#tasks").append(task)
+                }
+            })
+        })
     })
 
     $(document.body).on('click', '.result-expand', function (e) {
@@ -170,7 +235,8 @@ function createResult(id, data, saved) {
         return (string +
             "<div class='button-group'>" +
             "<button type='button' class='btn btn-outline-secondary button info' toggle='true' id='info" + id + "'>Information</button>" +
-            "<button type='button' class='btn btn-outline-danger button delete'>Delete</button>" +
+            "<button type='button' class='btn btn-outline-secondary button tasks' data='" + id + "'>Tasks</button>" +
+            "<button type='button' class='btn btn-outline-danger button delete' data='" + id + "'>Delete</button>" +
             "<button type='button' class='btn btn-outline-primary button apply' data='" + data.apply_url + "'>Apply</button>" +
             "</div>" +
             "</div>"
@@ -185,4 +251,18 @@ function createResult(id, data, saved) {
             "</div>"
         )
     }
+}
+
+function createTask(data) {
+    var ticked
+    if (data.ticked) {
+        ticked = ""
+    } else {
+        ticked = "un"
+    }
+    return (
+        "<tr><td><img class='tickbox' job='" + data.job + "' toggle='" + data.ticked + "' data='" + data.id + "' src='/assets/" + ticked + "ticked.png'></td>" +
+        "<td>" + data.task + "</td>" +
+        "<td><img class='removeTask' job='" + data.job + "' task='" + data.id + "' src='/assets/remove.png'/></td></tr>"
+    )
 }

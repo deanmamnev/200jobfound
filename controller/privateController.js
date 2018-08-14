@@ -34,10 +34,10 @@ exports.postSearch = function (req, res) {
             }) => {
                 for (var i = 0; i < listings.listing.length; i++) {
                     var job = listings.listing[i]
-                    var job_id = parseInt(job.id)
+                    // var job_id = parseInt(job.id)
                     var jobs = []
                     db.jobs.findOrCreate({
-                        where: { job_id: job_id, user: req.user.id }, defaults: {
+                        where: { job_id: job.id, user: req.user.id }, defaults: {
                             title: job.title,
                             description: job.description,
                             post_date: job.post_date,
@@ -49,7 +49,7 @@ exports.postSearch = function (req, res) {
                             url: job.url,
                             perks: job.perks,
                             user: req.user.id,
-                            job_id: job_id,
+                            job_id: job.id,
                         }
                     }).then(newJob => {
                         jobs.push(newJob)
@@ -96,4 +96,10 @@ exports.logout = function (req, res) {
     req.session.destroy(function (err) {
         res.json(true)
     });
+}
+
+exports.toggleTick = function (req, res) {
+    var task = req.query.task
+    var tick = req.query.tick
+    db.tasks.update({ ticked: tick }, { where: { id: task } }).then((data) => { res.json(data) })
 }

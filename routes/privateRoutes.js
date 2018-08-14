@@ -22,6 +22,7 @@ module.exports = function (app, passport) {
 
     app.delete('/api/tasks', controller.deleteTasks)
 
+    app.post('/api/tick', controller.toggleTick)
 
     app.get('/api/logout', controller.logout)
 }

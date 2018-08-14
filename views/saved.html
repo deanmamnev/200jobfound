@@ -1,1 +1,66 @@
-SAVED
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <link rel='stylesheet' href='/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='/css/saved.css' type='text/css' media='screen,projection' />
+</head>
+
+<body>
+
+    <div class='nav-wrapper'>
+        <div class='logo-wrapper'>
+            200 Job Found
+        </div>
+        <div class='tab-wrapper'>
+            <div class='tab' id='searchButton'>
+                Search
+            </div>
+            <div class='tab' id='savedButton'>
+                Saved
+            </div>
+            <div class='tab' id='logOutButton'>
+                Log Out
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <div class='results-wrapper'>
+
+    </div>
+
+    <div class='modal fade' id='tasksModal' job=''>
+        <div class='modal-dialog' role='document'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <h4 class='modal-title' id='tasksModalLabel'>Tasks</h4>
+                    <button type='button' style='color:white;' class='close' data-dismiss='modal' aria-label='Close'>
+                        <span aria-hidden='true'>&times;</span>
+                    </button>
+                </div>
+                <div class='modal-body'>
+                        <table class="table table-hover table-dark">
+                                <tbody id="tasks">
+                                </tbody>
+                              </table>
+                </div>
+                <div class='modal-footer'>
+                    <div id='taskBar'>
+                        <input type='text' class='form-control' id='taskField' placeholder='Search...'>
+                        <button type='submit' class='btn btn-secondary' id="task">Add Task</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type='text/javascript' src='/js/jquery-3.3.1.min.js'></script>
+    <script type='text/javascript' src='/js/saved.js'></script>
+    <script type='text/javascript' src='/js/bootstrap.min.js'></script>
+</body>
+
+</html>
