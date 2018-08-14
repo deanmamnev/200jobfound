@@ -97,7 +97,7 @@ body {
 .arrow-down {
     width: 100%;
 }
-@media only screen and (min-width: 448px) {
+@media only screen and (min-width: 568px) {
     .button-group {
         font-family:"monaco","Consolas","Lucida Console",monospace;
         position: relative;
@@ -108,11 +108,12 @@ body {
         margin-top: 8px;
     }
     .button {
+        font-size: .8em;
         width: calc(100% / 4);
         border-width: 2px;
     }
 }
-@media only screen and (max-width: 448px) {
+@media only screen and (max-width: 567px) {
     .button-group {
         font-family:"monaco","Consolas","Lucida Console",monospace;
         position: relative;
@@ -123,6 +124,7 @@ body {
         margin-top: 8px;
     }
     .button {
+        font-size: .8em;
         width: 100%;
         border-width: 2px;
     }
