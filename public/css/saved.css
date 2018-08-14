@@ -1,110 +1,43 @@
-body {
-    font-family:"monaco","Consolas","Lucida Console",monospace;
-    text-align: center;
-    background-color: rgba(60,60,60);
-}
-.nav-wrapper {
-    color: white;
-    background-color: rgba(30,30,30);
-}
-.logo-wrapper {
-    font-size: 8vw;
-}
-.tab-wrapper {
-    display:flex;
-}
-.tab {
-    width: calc(100% / 3);
-    font-size: 1.3em;
-}
 #savedButton {
     background-color: rgba(60,60,60);
-}
-#searchButton {
-    background-color: rgba(30,30,30);
-}
-#logOutButton {
-    background-color: rgba(30,30,30);
-}
-#register {
-    width: 100%;
-}
-#logIn {
-    width: 100%
 }
 #taskBar {
     display: flex;
     width: 80%;
     margin: auto;
 }
-.form-control:focus {
-    border-color: black;
-    outline: 0;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 0, 0, 0.6);
-            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 0, 0, 0.6);
+.tickbox {
+    left: 16px;
 }
-.results-wrapper {
-    position: absolute;
-    right: 10%;
-    left: 10%;
+.modal {
+    position: fixed;
+    right: 2%;
+    left: 2%;
+    top: 2%;
+    bottom: 2%;
 }
-.result {
-    border-style: solid;
-    border-color: white;
-    border-width: 1px;
-    background-color: rgba(30,30,30);;
-    margin-top: 32px;
-    margin-bottom: 32px;
-    padding: 16px;
-    border-radius: 16px;
-    color: white;
+.modal-dialog {
+    position: fixed;
+    right: 2%;
+    left: 2%;
+    top: 2%;
+    bottom: 2%;
 }
-
-.result-info {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-}
-.result-info div{
-    padding: 16px;
-    margin-top: 16px;
-    text-align: center;
-    border-style: solid;
-    border-color: lightgray;
-    border-right-width: 1px;
-    border-left-width: 1px;
-    border-top-width: 0px;
-    border-bottom-width: 0px;
-}
-
-.result-header {
-    font-family:"monaco","Consolas","Lucida Console",monospace;
-    position: relative;
-    left: 0%;
-    right: 0%;
-    border-style: solid;
-    border-color: white;
-    border-width: 1px;
-    border-radius: 4px;
-    margin-bottom: 1px;
-}
-
-.result-expand {
-    position: relative;
-    bottom: 0%;
-    left: 0%;
-    right: 0%;
-}
-.result-content {
-    text-align: left;
-    overflow-y: scroll;
-    position: relative;
-    top: 0%;
-    height: 320px;
-    margin-bottom: 1px;
-}
-.arrow-down {
-    width: 100%;
+.modal-content{
+    position: fixed;
+    right: 2%;
+    left: 2%;
+    top: 2%;
+    bottom: 2%;
+ }
+ .modal-body{
+    overflow-y: scroll
+ }
+ .modal-header {
+    min-height: 56px;
+ }
+ .modal-footer {
+    min-height: 80px;
 }
 @media only screen and (min-width: 568px) {
     .button-group {
@@ -137,36 +70,4 @@ body {
         width: 100%;
         border-width: 2px;
     }
-}
-.modal {
-    position: fixed;
-    right: 2%;
-    left: 2%;
-    top: 2%;
-    bottom: 2%;
-}
-.modal-dialog {
-    position: fixed;
-    right: 2%;
-    left: 2%;
-    top: 2%;
-    bottom: 2%;
-}
-.modal-content{
-    position: fixed;
-    right: 2%;
-    left: 2%;
-    top: 2%;
-    bottom: 2%;
-    background-color: rgb(40, 40, 40, .8);
-    color: white;
- }
- .modal-body{
-    overflow-y: scroll
- }
- .modal-header {
-    min-height: 56px;
- }
- .modal-footer {
-    min-height: 80px;
 }
