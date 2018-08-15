@@ -34,7 +34,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(session({
     secret: 'keyboard cat',
     store: sessionStore,
-    resave: false,
+    resave: true,
     saveUninitialized: true,
 }));
 
