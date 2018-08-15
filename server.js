@@ -26,9 +26,10 @@ var options = { //this will go in the .env
 // }
 var sessionStore = new MySQLStore(options);
 
+app.use(express.static('public'))
+app.use(cookieParser('keyboard cat'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(cookieParser('keyboard cat'))
 
 app.use(session({
     secret: 'keyboard cat',
@@ -41,7 +42,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express.static('public'))
 app.get('/search', (req, res) => res.sendFile(path.join(__dirname + '/views/search.html')))
 app.get('/saved', (req, res) => res.sendFile(path.join(__dirname + '/views/saved.html')))
 app.get('/', (req, res) => res.sendFile(path.join(__dirname + '/views/landing.html')))
