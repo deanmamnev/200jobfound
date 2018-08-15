@@ -34,7 +34,8 @@ app.use(session({
     secret: 'keyboard cat',
     store: sessionStore,
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: { secure: true }
 }));
 
 app.use(passport.initialize());
