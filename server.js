@@ -26,8 +26,8 @@ var options = { //this will go in the .env
 // }
 var sessionStore = new MySQLStore(options);
 
-app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser('keyboard cat'))
 
 app.use(session({
