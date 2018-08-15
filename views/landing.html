@@ -4,7 +4,7 @@
 
 <head>
     <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-    <link rel='stylesheet' href='/css/bootstrap.min.css' type='text/css' media='screen,projection' >
+    <link rel='stylesheet' href='/css/bootstrap.min.css' type='text/css' media='screen,projection'>
     <link rel='stylesheet' href='/css/main.css' type='text/css' media='screen,projection' />
     <link rel='stylesheet' href='/css/landing.css' type='text/css' media='screen,projection' />
 </head>
@@ -27,13 +27,69 @@
 
     <br />
 
-    <div id='searchBar'>
-        <input type='text' class='form-control' id='searchField' placeholder='Search...'>
-        <button type='submit' class='btn btn-secondary' id="search">Search</button>
-    </div>
+    <form>
+        <div id='searchBar'>
+            <input type='text' class='form-control' id='searchField' placeholder='Search...'>
+            <button type='submit' class='btn btn-secondary' id="search">Search</button>
+        </div>
+    </form>
+    <br />
+    <form>
+        <div class="filters-wrapper">
+            <div class="filters">
+                <div>
+                    Category:
+                    <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="category-select">
+                        <option selected>Choose...</option>
+                        <option value="1" data="3">Design &amp; User Experience</option>
+                        <option value="2" data="4">Front-end Engineering</option>
+                        <option value="3" data="2">Back-end Engineering</option>
+                        <option value="4" data="5">Apps</option>
+                        <option value="5" data="10">Product Management</option>
+                        <option value="6" data="12">Content &amp; Copywriting</option>
+                        <option value="7" data="8">Marketing &amp; Sales</option>
+                        <option value="8" data="11">Customer &amp; Community</option>
+                        <option value="9" data="6">Management</option>
+                        <option value="10" data="9">Miscellaneous</option>
+                    </select>
+                </div>
+                <div>
+                    Hours:
+                    <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="type-select">
+                        <option selected>Choose...</option>
+                        <option value="1" data="1">Full-time</option>
+                        <option value="2" data="5">Part-time</option>
+                    </select>
+                </div>
+                <div>
+                    Sort By:
+                    <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="sort-select">
+                        <option selected>Choose...</option>
+                        <option value="1">Oldest</option>
+                        <option value="2">Newest</option>
+                    </select>
+                </div>
+            </div>
+            <div class="filters" id="filter-bottom">
+                <div>
+                    Location:
+                    <input type='text' class='form-control' id='location' placeholder='Example: Minneapolis, MN'>
+                </div>
+                <div>
+                    Telecommute:
+                    <input class="form-check-input" type="checkbox" id="telecommute">
+                </div>
+            </div>
+            <div class='filter-expand' toggle='false'>
+                <button class='btn btn-outline-light arrow-down'>
+                    Filters
+                </button>
+            </div>
+        </div>
+    </form>
 
     <div class='results-wrapper'>
-    
+
     </div>
 
     <div class='modal fade' id='logInModal'>

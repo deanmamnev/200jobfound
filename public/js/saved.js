@@ -7,6 +7,7 @@ $(document).ready(function () {
                 window.location.replace("/")
             } else {
                 $.get("/api/saved", function (res) {
+                    $(".results-wrapper").empty()
                     for (i = 0; i < res.length; i++) {
                         var result = createResult(res[i].id, res[i], true)
                         $(".results-wrapper").append(result)

@@ -110,3 +110,16 @@ body {
     background-color: rgba(40, 40, 40, .8);
     color: white;
  }
+ .filters-wrapper {
+    color: white;
+    width: 80%;
+    margin: auto;
+ }
+ .filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+ }
+#filter-bottom {
+    margin-bottom: 32px;
+ }

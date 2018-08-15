@@ -1,5 +1,6 @@
 
 $(document).ready(function () {
+    $(".filters").hide()
 
     $.get("/api/auth").then(function (res) {
         if (res) {
@@ -76,8 +77,10 @@ $(document).ready(function () {
     $("#search").on("click", function (e) {
         e.preventDefault()
         $(".results-wrapper").empty()
-        var val = $("#searchField").val()
-        $.get("/api/publicSearch?q=" + val, function (res) {
+        $(".results-wrapper").append("<img src='/assets/loading.gif' />")
+        var val = getSearchString()//$("#searchField").val()
+        $.get("/api/publicSearch?" + val, function (res) {
+            $(".results-wrapper").empty()
             for (i = 0; i < res.length; i++) {
                 var result = createResult(i, res[i], false)
                 $(".results-wrapper").append(result)
@@ -87,6 +90,24 @@ $(document).ready(function () {
             $('.result-description *').removeAttr('style');
             console.log(res)
         })
+    })
+
+    $(".filter-expand").on("click", function (e) {
+        e.preventDefault()
+        var toggle = ($(this).attr("toggle"))
+        if (toggle == "true") {
+            $(".filters").hide()
+            $(this).attr("toggle", "false")
+            $(".filter-expand").html("<button class='btn btn-outline-light arrow-down'>" +
+                "Filters" +
+                "</button>")
+        } else {
+            $(".filters").show()
+            $(this).attr("toggle", "true")
+            $(".filter-expand").html("<button class='btn btn-outline-light arrow-down'>" +
+                "<img src='/assets/chevron-up.png' />" +
+                "</button>")
+        }
     })
 
     $(document.body).on('click', '.info', function (e) {
@@ -165,6 +186,10 @@ $(document).ready(function () {
             $(this).attr("toggle", "true")
         }
     })
+    $('#telecommute').on("click", function () {
+        $("#location").val("")
+        $("#location").prop('disabled', ($('#telecommute').is(":checked")))
+    })
 })
 
 //------------------------------------------------------------------------------
@@ -225,4 +250,43 @@ function createResult(id, data, saved) {
             "</div>"
         )
     }
+}
+
+function getSearchString() {
+    var q = $("#searchField").val()
+    var cat = $("#category-select").val()
+    var type = $("#type-select").val()
+    var tele = ($('#telecommute').is(":checked"))
+    var sort = $("#sort-select").val()
+    var loc = $("#location").val()
+
+    if (cat == "Choose...") {
+        cat = ""
+    } else {
+        cat = "&category=" + cat
+    }
+    if (type == "Choose...") {
+        type = ""
+    } else {
+        type = "&type=" + type
+    }
+    if (sort == "Choose...") {
+        sort = ""
+    } else {
+        if (sort == "1") {
+            sort = "&sort=date-posted-desc"
+        } else {
+            sort = "&sort=dated-posted-asc"
+        }
+    }
+    if (tele) {
+        tele = "&telecommuting=1"
+    } else {
+        tele = ""
+        if (!loc == "") {
+            loc = "&location=" + loc
+        }
+    }
+    console.log("&method=aj.jobs.get&keywords=" + q + cat + type + sort + tele + loc)
+    return ("&method=aj.jobs.get&keywords=" + q + cat + type + sort + tele + loc)
 }
