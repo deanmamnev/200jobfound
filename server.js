@@ -32,6 +32,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(session({
     secret: 'keyboard cat',
     store: sessionStore,
+    cookie: { secure: true }
 }));
 
 app.use(passport.initialize());
@@ -58,5 +59,5 @@ models.sequelize.sync().then(function () {
 });
 app.get('*', (req, res) => res.sendFile(path.join(__dirname + '/views/notfound.html')))
 app.listen(PORT, function () {
-        console.log(`🌎 ==> Server now on port ${PORT}!`);
-    });
+    console.log(`🌎 ==> Server now on port ${PORT}!`);
+});
