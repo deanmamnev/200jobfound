@@ -5,6 +5,7 @@ const passport = require('passport')
 const session = require('express-session')
 const MySQLStore = require('express-mysql-session')(session);
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 require('dotenv').config()
 const PORT = process.env.PORT || 4001;
 
@@ -27,12 +28,12 @@ var sessionStore = new MySQLStore(options);
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-// app.use(cookieParser('keyboard cat'))
+app.use(cookieParser('keyboard cat'))
 
 app.use(session({
     secret: 'keyboard cat',
     store: sessionStore,
-    cookie: { secure: true }
+    resave: false
 }));
 
 app.use(passport.initialize());

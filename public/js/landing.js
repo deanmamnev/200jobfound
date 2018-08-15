@@ -35,13 +35,25 @@ $(document).ready(function () {
         e.preventDefault()
         var email = $("#logInEmail").val()
         var password = $("#logInPassword").val()
-        $.post("/api/login", { email: email, password: password }).then(function (res) {
-            if (res) {
+        // $.post("/api/login", { email: email, password: password }).then(function (res) {
+        //     if (res) {
+        //         window.location.replace("/search")
+        //     }
+        // })}
+
+        $.ajax({
+            method: "POST",
+            url: '/api/login',
+            data: { email: email, password: password },
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function (res) {
                 window.location.replace("/search")
             }
-        })
-
-    })
+        });
+    }
+    )
 
     $("#logInButton").on("click", function (e) {
         e.preventDefault()
@@ -171,7 +183,7 @@ function createResult(id, data, saved) {
     } else {
         data.relocation_assistance = "false"
     }
-    
+
     var string =
         "<div class='result' id='result" + id + "'>" +
         "<div class='result-header'><strong>" + data.title + "</strong></div>" +
