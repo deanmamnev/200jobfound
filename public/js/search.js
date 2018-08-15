@@ -2,11 +2,25 @@
 $(document).ready(function () {
 
     $(document).ready(function () {
-        $.get("/api/auth").then(function (res) {
-            if (!res) {
-                window.location.replace("/")
+
+        $.ajax({
+            method: "GET",
+            url: '/api/auth',
+            xhrFields: {
+               withCredentials: true
+            },
+            success: function (res) {
+                console.log(res)
+                if (!res) {
+                    window.location.replace("/")
+                }
             }
-        })
+          });
+        // $.get("/api/auth").then(function (res) {
+        //     if (!res) {
+        //         window.location.replace("/")
+        //     }
+        // })
     })
 
     $("#savedButton").mouseover(function () {
