@@ -28,6 +28,7 @@ body {
     position: absolute;
     right: 10%;
     left: 10%;
+    color: white;
 }
 #searchBar {
     display: flex;

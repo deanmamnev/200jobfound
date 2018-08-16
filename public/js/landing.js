@@ -3,8 +3,26 @@ $(document).ready(function () {
     $(".filters").hide()
 
     $.get("/api/auth").then(function (res) {
+        $(".results-wrapper").append("<img src='/assets/loading.gif' />")
         if (res) {
             window.location.replace("/search")
+        } else {
+            $(".results-wrapper").empty()
+            $(".results-wrapper").append("Finding the newest postings...<br/><img src='/assets/loading.gif' />")
+            $.get("/api/publicSearch?keywords=", function (res) {
+                $(".results-wrapper").empty()
+                if (res.length == 0) {
+                    $(".results-wrapper").append("<br/><strong>404 Job not found!<br/>Have you tried ammending your search?</strong>")
+                }
+                for (i = 0; i < res.length; i++) {
+                    var result = createResult(i, res[i], false)
+                    $(".results-wrapper").append(result)
+                    $("#info" + i).css("display", "none")
+                    $("#description" + i).show()
+                }
+                $('.result-description *').removeAttr('style');
+                console.log(res)
+            })
         }
     })
 
@@ -81,6 +99,9 @@ $(document).ready(function () {
         var val = getSearchString()//$("#searchField").val()
         $.get("/api/publicSearch?" + val, function (res) {
             $(".results-wrapper").empty()
+            if (res.length == 0) {
+                $(".results-wrapper").append("<br/><strong>404 Job not found!<br/>Have you tried ammending your search?</strong>")
+            }
             for (i = 0; i < res.length; i++) {
                 var result = createResult(i, res[i], false)
                 $(".results-wrapper").append(result)
@@ -208,19 +229,33 @@ function createResult(id, data, saved) {
     } else {
         data.relocation_assistance = "false"
     }
-
+    if (!data.company_url) {
+        company = "404<br/>Company Logo Not Found"
+    }
+    if (!data.company_name) {
+        data.company_name = "[Not Listed]"
+    }
+    if (!data.category_name) {
+        data.category_name = "[Not Listed]"
+    }
+    if (!data.type_name) {
+        data.type_name = "[Not Listed]"
+    }
+    if (data.company_url) {
+        company = "<img src='https://logo.clearbit.com/" + data.company_url + "' class='result-logo-img' onerror='replaceLogo(this)'/>"
+    }
     var string =
         "<div class='result' id='result" + id + "'>" +
         "<div class='result-header'><strong>" + data.title + "</strong></div>" +
         "<div class='result-content' id='content" + id + "'>" +
         "<div class='result-description' id='description" + id + "'>" + data.description + "</div>" +
         "<div class='result-info' id='info" + id + "'>" +
-        "<div class='result-company-logo'><img src='https://logo.clearbit.com/" + data.company.url + "' class='result-logo-img' onerror='this.src=`/assets/logo-missing.png`'/></div>" +
-        "<div class='result-company-name'><strong>Company Name:</strong><br/><a class='businessPage' href='" + data.company.url + "'>" + data.company.name + "</a></div>" +
+        "<div class='result-company-logo'>" + company + "</div>" +
+        "<div class='result-company-name'><strong>Company Name:</strong><br/><a class='businessPage' href='" + data.company_url + "'>" + data.company_name + "</a></div>" +
         "<div class='result-post-date'><strong>Date Posted:</strong><br/>" + data.post_date + "</div>" +
-        "<div class='result-category-name'><strong>Category:</strong><br/>" + data.category.name + "</div>" +
+        "<div class='result-category-name'><strong>Category:</strong><br/>" + data.category_name + "</div>" +
         "<div class='result-perks'><strong>Perks:</strong><br/>" + data.perks + "</div>" +
-        "<div class='result-type-name'><strong>Hours:</strong><br/>" + data.type.name + "</div>" +
+        "<div class='result-type-name'><strong>Hours:</strong><br/>" + data.type_name + "</div>" +
         "<div class='result-relocation-assistance'><strong>Relocation Assistance:</strong><br/>" + data.relocation_assistance + "</div>" +
         "<div class='result-telecommuting'><strong>Telecommute:</strong><br/>" + data.telecommuting + "</div>" +
         "<div class='result-url'><strong>Job Page:</strong><br/><a class='jobPage' href='" + data.url + "'>Click Here</a></div>" +
@@ -244,13 +279,18 @@ function createResult(id, data, saved) {
         return (string +
             "<div class='button-group'>" +
             "<button type='button' class='btn btn-outline-light button info' toggle='true' id='info" + id + "'>Information</button>" +
-            "<button type='button' class='btn btn-outline-success button save'>Save</button>" +
+            "<button type='button' class='btn btn-outline-success button save' data='" + id + "'>Save</button>" +
             "<button type='button' class='btn btn-outline-primary button apply' data='" + data.apply_url + "'>Apply</button>" +
             "</div>" +
             "</div>"
         )
     }
 }
+function replaceLogo(ele) {
+    $(ele).parent().append("404<br/>Company Logo Not Found")
+    $(ele.remove())
+}
+
 
 function getSearchString() {
     var q = $("#searchField").val()
@@ -274,9 +314,9 @@ function getSearchString() {
         sort = ""
     } else {
         if (sort == "1") {
-            sort = "&sort=date-posted-desc"
+            sort = "&sort=date-posted-asc"
         } else {
-            sort = "&sort=dated-posted-asc"
+            sort = ""
         }
     }
     if (tele) {
@@ -287,6 +327,6 @@ function getSearchString() {
             loc = "&location=" + loc
         }
     }
-    console.log("&method=aj.jobs.get&keywords=" + q + cat + type + sort + tele + loc)
-    return ("&method=aj.jobs.get&keywords=" + q + cat + type + sort + tele + loc)
+    console.log("keywords=" + q + cat + type + sort + tele + loc)
+    return ("keywords=" + q + cat + type + sort + tele + loc)
 }

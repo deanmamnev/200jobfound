@@ -24,39 +24,62 @@ exports.getTasks = function (req, res) {
 
 exports.postSearch = function (req, res) {
     db.jobs.destroy({ where: { saved: false, user: req.user.id } }).then(function () {
-        var search = req.query.q;
+        var queryString = ""
+        if (typeof req.query.category !== 'undefined') {
+            queryString += ("&category=" + req.query.category)
+        }
+        queryString += "&format=json&keywords=" + req.query.keywords
+        if (typeof req.query.location !== 'undefined') {
+            queryString += ("&location=" + req.query.location)
+        }
+        queryString += "&method=aj.jobs.search"
+        if (typeof req.query.sort !== 'undefined') {
+            queryString += ("&sort=" + req.query.sort)
+        }
+        if (typeof req.query.telecommute !== 'undefined') {
+            queryString += ("&telecommute=" + req.query.telecommute)
+        }
+        if (typeof req.query.type !== 'undefined') {
+            queryString += ("&type=" + req.query.type)
+        }
+        console.log(queryString)
         axios
-            .get(`https://authenticjobs.com/api/?api_key=7aa3eac14c96fe5c4fe58dc504d956e0&method=aj.jobs.search&keywords=${search}&format=json`)
+            .get(`https://authenticjobs.com/api/?api_key=7aa3eac14c96fe5c4fe58dc504d956e0` + queryString)
             .then(({
                 data: {
                     listings
                 }
             }) => {
-                for (var i = 0; i < listings.listing.length; i++) {
-                    var job = listings.listing[i]
-                    // var job_id = parseInt(job.id)
-                    var jobs = []
-                    db.jobs.findOrCreate({
-                        where: { job_id: job.id, user: req.user.id }, defaults: {
-                            title: job.title,
-                            description: job.description,
-                            post_date: job.post_date,
-                            company_name: job.company.name,
-                            category_name: job.category.name,
-                            type_name: job.type.name,
-                            apply_url: job.apply_url,
-                            company_url: job.company.url,
-                            url: job.url,
-                            perks: job.perks,
-                            user: req.user.id,
-                            job_id: job.id,
-                        }
-                    }).then(newJob => {
-                        jobs.push(newJob)
-                        if (jobs.length == listings.listing.length) {
-                            res.json(true)
-                        }
-                    });
+                console.log("!!!!!!")
+                if (listings.listing.length == 0) {
+                    res.json(true)
+                } else {
+                    for (var i = 0; i < listings.listing.length; i++) {
+                        var job = listings.listing[i]
+                        // var job_id = parseInt(job.id)
+                        var jobs = []
+                        db.jobs.findOrCreate({
+                            where: { job_id: job.id, user: req.user.id }, defaults: {
+                                title: job.title,
+                                description: job.description,
+                                post_date: job.post_date,
+                                company_name: job.company.name,
+                                category_name: job.category.name,
+                                type_name: job.type.name,
+                                apply_url: job.apply_url,
+                                company_url: job.company.url,
+                                url: job.url,
+                                perks: job.perks,
+                                user: req.user.id,
+                                job_id: job.id,
+                            }
+                        }).then(newJob => {
+                            jobs.push(newJob)
+                            if (jobs.length == listings.listing.length) {
+                                res.json(true)
+                            }
+                        });
+                    }
                 }
             })
     })

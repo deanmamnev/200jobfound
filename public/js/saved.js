@@ -225,13 +225,28 @@ function createResult(id, data, saved) {
     } else {
         data.relocation_assistance = "false"
     }
+    if (!data.company_url) {
+        company = "404<br/>Company Logo Not Found"
+    }
+    if (!data.company_name) {
+        data.company_name = "[Not Listed]"
+    }
+    if (!data.category_name) {
+        data.category_name = "[Not Listed]"
+    }
+    if (!data.type_name) {
+        data.type_name = "[Not Listed]"
+    }
+    if (data.company_url) {
+        company = "<img src='https://logo.clearbit.com/" + data.company_url + "' class='result-logo-img' onerror='replaceLogo(this)'/>"
+    }
     var string =
         "<div class='result' id='result" + id + "'>" +
         "<div class='result-header'><strong>" + data.title + "</strong></div>" +
         "<div class='result-content' id='content" + id + "'>" +
         "<div class='result-description' id='description" + id + "'>" + data.description + "</div>" +
         "<div class='result-info' id='info" + id + "'>" +
-        "<div class='result-company-logo'><img src='https://logo.clearbit.com/" + data.company_url + "' class='result-logo-img' onerror='this.src=`/assets/logo-missing.png`'/></div>" +
+        "<div class='result-company-logo'>" + company + "</div>" +
         "<div class='result-company-name'><strong>Company Name:</strong><br/><a class='businessPage' href='" + data.company_url + "'>" + data.company_name + "</a></div>" +
         "<div class='result-post-date'><strong>Date Posted:</strong><br/>" + data.post_date + "</div>" +
         "<div class='result-category-name'><strong>Category:</strong><br/>" + data.category_name + "</div>" +
@@ -251,8 +266,7 @@ function createResult(id, data, saved) {
         return (string +
             "<div class='button-group'>" +
             "<button type='button' class='btn btn-outline-light button info' toggle='true' id='info" + id + "'>Information</button>" +
-            "<button type='button' class='btn btn-outline-warning button tasks' data='" + id + "'>Tasks</button>" +
-            "<button type='button' class='btn btn-outline-danger button delete' data='" + id + "'>Delete</button>" +
+            "<button type='button' class='btn btn-outline-danger button delete'>Delete</button>" +
             "<button type='button' class='btn btn-outline-primary button apply' data='" + data.apply_url + "'>Apply</button>" +
             "</div>" +
             "</div>"
@@ -268,6 +282,11 @@ function createResult(id, data, saved) {
         )
     }
 }
+function replaceLogo(ele) {
+    $(ele).parent().append("404<br/>Company Logo Not Found")
+    $(ele.remove())
+}
+
 
 function createTask(data) {
     var ticked
