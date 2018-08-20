@@ -16,6 +16,7 @@ if (config.use_env_variable) {
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_DATABASE,
+    url: "",
     dialect: "mysql"
 };
   var sequelize = new Sequelize(process.env[config.use_env_variable], config);
