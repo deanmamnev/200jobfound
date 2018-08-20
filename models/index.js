@@ -9,20 +9,19 @@ var config    = require(path.join(__dirname, '..', 'config', 'config.json'))[env
 var db        = {};
 console.log(config)
 
-if (config.use_env_variable) {
+// if (config.use_env_variable) {
   config = { //this will go in the .env
     host: process.env.DB_HOST,
     port: 3306,
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_DATABASE,
-    url: "",
     dialect: "mysql"
 };
   var sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  var sequelize = new Sequelize(config.database, config.username, config.password, config);
-}
+// } else {
+//   var sequelize = new Sequelize(config.database, config.username, config.password, config);
+// }
 
 fs
   .readdirSync(__dirname)
