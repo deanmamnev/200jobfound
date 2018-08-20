@@ -21,9 +21,9 @@ exports.publicSearch = function (req, res) {
 	if (typeof req.query.type !== 'undefined') {
 		queryString += ("&type=" + req.query.type)
 	}
-	console.log(`https://authenticjobs.com/api/?api_key=7aa3eac14c96fe5c4fe58dc504d956e0` + queryString)
+	console.log(`https://authenticjobs.com/api/?api_key=` + process.env.API_KEY + queryString)
 	axios
-		.get(`https://authenticjobs.com/api/?api_key=7aa3eac14c96fe5c4fe58dc504d956e0` + queryString)
+		.get(`https://authenticjobs.com/api/?api_key=` + process.env.API_KEY + queryString)
 		.then(function (resp) {
 			console.log("!!!!!!!")
 			var jobArray = []
