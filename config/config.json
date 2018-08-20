@@ -17,6 +17,6 @@
     },
 
     "production": {
-        "prop": ""
+        "dialect": "mysql"
     }
 }
