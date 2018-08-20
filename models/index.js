@@ -10,7 +10,7 @@ var db        = {};
 // console.log(config)
 
 // if (config.use_env_variable) {
-  var config = { //this will go in the .env
+  const config = { //this will go in the .env
     host: process.env.DB_HOST,
     port: 3306,
     user: process.env.DB_USER,
