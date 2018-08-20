@@ -7,7 +7,7 @@ var env       = process.env.NODE_ENV || "development";
 // var config    = require(path.join(__dirname, '..', 'config', 'config.json'))[env];
 // var sequelize = new Sequelize("twohundredjobfound", config.username, config.password, config);
 var db        = {};
-console.log(config)
+// console.log(config)
 
 // if (config.use_env_variable) {
   config = { //this will go in the .env
