@@ -16,7 +16,8 @@ var db        = {};
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_DATABASE,
-    dialect: "mysql"
+    dialect: "mysql",
+    use_env_variable: "JAWSDB_URL"
 };
   var sequelize = new Sequelize(process.env[config.use_env_variable], config);
 // } else {
